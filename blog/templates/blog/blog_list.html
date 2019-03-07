@@ -1,0 +1,24 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<a href="{% url 'newblog' %}">새로 만들기</a>
+
+{% for blog in posts %}
+    <h3>{{ blog.title }}</h3>
+    <h6>{{ blog.created_at }}</h6>
+    <h6>{{ blog.updated_at }}</h6>
+    <p> {{ blog.body }}</p>
+    {% if  blog.image_url %}
+        <img src="{{ blog.image_url }}" alt="사진" width=300>
+    {% endif %}
+    <hr>
+{% endfor %}
+{% if posts.has_previous %}
+<a href="?page=1">Fist</a>
+<a href="?page={{posts.previous_page_number}}">Previous</a>
+{% endif %}
+{% if posts.has_next %}
+<a href="?page={{posts.next_page_number}}">Next</a>
+<a href="?page={{posts.paginator.num_pages}}">Last</a>
+{% endif %}
+{% endblock %}
